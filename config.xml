@@ -2,9 +2,9 @@
 <widget id="com.phonegap.helloworld" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0"
 xmlns:android  = "http://schemas.android.com/apk/res/android"
 >
-    <name>4CAD-MQ</name>
+    <name>4CAD-CT</name>
     <description>
-        Sistema para el registro de la maquila.
+        Sistema para el monitoreo de operaciones.
     </description>
     <author email="gilberto.cruz@yaaxil.com" href="http://yaaxil.com">
         Yaaxil Team

@@ -1,0 +1,105 @@
+<div id="step_1" class="pure-form pure-form-aligned">
+    <div class="header">
+        <h1>Captura de Maquila</h1>
+        <h2>Paso 1: B&uacute;squeda de &Oacute;rdenes de Trabajo con registro de pasos</h2>
+    </div>
+
+    <div id="div_new_sel" class="hidden" style="margin-bottom: 1em">
+        <div class="pure-control-group">
+            <button id="btn_new_sel" class="pure-button">
+                <i class="sprite icon Refresh"></i>
+                Realizar nueva selecci&oacute;n
+            </button>
+        </div>
+    </div>
+
+    <!-- <div id="div_search_orden">
+        <div class="pure-control-group">
+            <input id="txt_orden">
+            <input id="txt_orden_mask" style="display:none">
+            <button id="btn_search_orden" class="pure-button">
+                <i class="sprite icon Search"></i>
+                Buscar Orden
+            </button>
+        </div>
+    </div> -->
+
+    <div id="div_sel_orden">
+        <div class="pure-control-group">
+            <select id="ddl_orden"></select>
+        </div>
+    </div>
+
+    <div id="div_sel_servicio" class="hidden">
+        <div>
+            <span>Folio: <label style="display: inline;" class="selected" id="lbl_folio"></label></span>
+        </div>
+        <div>
+            <span>Ref. Ent.: <label style="display: inline;" class="selected" id="lbl_ref_ent"></label></span>
+        </div>
+        <div>
+            <span>Supervisor: <label style="display: inline;" class="selected" id="lbl_supervisor"></label></span>
+        </div>
+        <table style="table-layout: fixed; word-wrap: break-word;" class="pure-table" width="95%">
+            <thead>
+                <tr>
+                    <th align="center">Tipo</th>
+                    <th align="center">Ref</th>
+                    <th align="center">Pza(s)</th>
+                    <th align="center">Pasos</th>
+                    <th align="center">Maq</th>
+                </tr>
+            </thead>
+            <tbody id="tbody_serv_pasos">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="step_2" class="hidden pure-form pure-form-aligned">
+        
+    <div class="header">
+        <h1>Captura de Maquila</h1>
+        <h2>Paso 2: Captura de piezas Maquiladas</h2>
+    </div>
+    <div>
+        <span>Tr&aacute;fico: <label style="display: inline;" class="selected" id="lbl_trafico"></label></span>
+    </div>
+    <div>
+        <span>Referencia: <label style="display: inline;" class="selected" id="lbl_referencia"></label></span>
+    </div>
+    <div>
+        <span>No Pasos: <label style="display: inline;" class="selected" id="lbl_no_pasos"></label></span>
+    </div>
+    <div>
+        <span>Piezas Solicitadas: <label style="display: inline;" class="selected" id="lbl_piezas_sol"></label></span>
+    </div>
+    <div>
+        <span>Piezas por maquilar: <label style="display: inline;" class="selected" id="lbl_piezas_x_maq"></label></span>
+    </div>
+    <div>
+        <span>Tipo de Etiqueta: <label style="display: inline;" class="selected" id="lbl_etiqueta_tipo"></label></span>
+    </div>
+    <div>
+        <label>Hora Maquila:</label>
+        <input id="horaMaquila" type="time">
+    </div>
+
+    <div>
+        <input type="number" id="txt_pieza_maq" placeholder="Piezas Maquiladas">    
+        <input type="number" id="txt_bulto_maq" placeholder="Bultos Maquilados">        
+        <input type="number" id="txt_pallet_maq" placeholder="Pallets Maquilados">
+    </div>
+
+    <div class="pure-control-group">
+        <button id="btn_save_maquila" class="pure-button ">
+            <i class="sprite icon Save"></i>
+            &nbsp;Guardar Maquila
+        </button>
+    </div>
+</div>
+
+<footer class="footer">
+    <div id="wizard_2"></div>
+</footer>

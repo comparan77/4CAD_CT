@@ -1,0 +1,48 @@
+<div class="header">
+    <h1>Recepci&oacute;n de Mercanc&iacute;a</h1>
+    <h2></h2>
+</div>
+
+<div class="pure-form pure-form-aligned">
+    <div class="pure-control-group">
+        <span id="info_load_data" class="info">Cargando datos...</span>
+        <span id="info_recepcion_mercancia" class="hidden info">Por el momento no cuentas con mercanc&iacute;a en Recepci&oacute;n</span>
+    </div>
+    <div class="pure-control-group" id="div_grd">
+        <div id="grd_recepcion">
+            <div id="columns">
+                <div type="Boundfield" datafield="Referencia" headertext="Referencia"></div>
+                <div type="Boundfield" datafield="Fecha" headertext="Fecha"></div>
+                <div type="Boundfield" datafield="Estatus" headertext="Estatus"></div>
+                <div type="Boundfield" datafield="Avance" headertext="% Avance"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pure-control-group hidden" id="div_detail">
+        <div>
+            <span>Referencia: <label style="display: inline;" class="selected" id="lbl_referencia"></label></span>
+        </div>
+        <div>
+            <span>Bodega: <label style="display: inline;" class="selected" id="lbl_bodega"></label></span>
+        </div>
+        <div>
+            <span>Cortina: <label style="display: inline;" class="selected" id="lbl_cortina"></label></span>
+        </div>
+        <div>
+            <span>Tarimas declaradas: <label style="display: inline;" class="selected" id="lbl_tar_declarada"></label></span>
+        </div>
+        <div>
+            <span>Tarimas recibidas: <label style="display: inline;" class="selected" id="lbl_tar_recibida"></label></span>
+        </div>
+
+        <canvas id="myChart" width="400" height="400"></canvas>
+
+        <div class="pure-controls">
+            <button id="btn_regresar" class="pure-button pure-button-primary">
+                Regresar
+            </button>
+        </div>
+    </div>
+
+</div>

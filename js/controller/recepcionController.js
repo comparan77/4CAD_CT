@@ -116,12 +116,14 @@ var RecepcionController = function() {
 
                             var obj = arrObj[0];
 
+                            var lbl_referencia = document.getElementById('lbl_referencia');
                             var lbl_bodega = document.getElementById('lbl_bodega');
                             var lbl_cortina = document.getElementById('lbl_cortina');
                             var lbl_tar_declarada = document.getElementById('lbl_tar_declarada');
                             var lbl_tar_recibida = document.getElementById('lbl_tar_recibida');
                             var lbl_por_recibir = document.getElementById('lbl_por_recibir');
 
+                            lbl_referencia.innerHTML = obj.Id;
                             lbl_bodega.innerHTML = obj.Bodega;
                             lbl_cortina.innerHTML = obj.Cortina;
                             lbl_tar_declarada.innerHTML = obj.Declaradas;

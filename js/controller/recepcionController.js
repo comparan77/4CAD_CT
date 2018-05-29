@@ -13,17 +13,21 @@ var RecepcionController = function() {
             for (var item in data) {
                 var objItem = data[item];
                 try {
-                    var status = 'Descargando';
-                    if(objItem.Por_recibir == objItem.Tarimas) {
+                    var status = 'Descargando...';
+                    if(objItem.Fin != '0001-01-01T00:00:00') {
                         status = 'Descargada';
                     }
+
+                    var avance = 0;
+                    if(objItem.Por_recibir!=0)
+                        avance = Math.trunc(objItem.Tarimas / objItem.Por_recibir * 100);
 
                     var obj = {
                         Referencia: '',
                         Id: objItem.Id,
                         Fecha: objItem.Inicio,
                         Estatus: status,
-                        Avance: objItem.Tarimas / objItem.Por_recibir * 100,
+                        Avance: avance,
                         Bodega: objItem.Bodega,
                         Cortina: objItem.Cortina,
                         Declaradas: objItem.Por_recibir,
@@ -53,44 +57,36 @@ var RecepcionController = function() {
     function init() {
         initControles();
         btn_regresar_click();
+        btn_refresh_click();
     }
 
-    function initChart() {
+    function btn_refresh_click() {
+        x$('#btn_refresh').on('click', function() {
+            arrData = [];
+            x$('#info_load_data').removeClass('hidden');
+            initControles();
+        });
+    }
+
+    function initChart(data) {
         var ctx = document.getElementById("myChart").getContext('2d');
         var myChart = new Chart(ctx, {
-            type: 'bar',
+            type: 'doughnut',
             data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                labels: ["Recibidas", "Pendientes"],
                 datasets: [{
                     label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: data,
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
                         'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
+                        'rgba(255, 99, 132, 0.2)',
                     ],
                     borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
                         'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
+                        'rgba(255,99,132,1)',
                     ],
                     borderWidth: 1
                 }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
             }
         });
     }
@@ -124,13 +120,15 @@ var RecepcionController = function() {
                             var lbl_cortina = document.getElementById('lbl_cortina');
                             var lbl_tar_declarada = document.getElementById('lbl_tar_declarada');
                             var lbl_tar_recibida = document.getElementById('lbl_tar_recibida');
+                            var lbl_por_recibir = document.getElementById('lbl_por_recibir');
 
                             lbl_bodega.innerHTML = obj.Bodega;
                             lbl_cortina.innerHTML = obj.Cortina;
                             lbl_tar_declarada.innerHTML = obj.Declaradas;
                             lbl_tar_recibida.innerHTML = obj.Recibidas;
+                            lbl_por_recibir.innerHTML = obj.Declaradas - obj.Recibidas;
 
-                            initChart();
+                            initChart([obj.Recibidas, obj.Declaradas - obj.Recibidas]);
 
                         } catch (error) {
                             console.log(error.message);

@@ -23,7 +23,7 @@ var RecepcionController = function() {
                         avance = Math.trunc(objItem.Tarimas / objItem.Por_recibir * 100);
 
                     var obj = {
-                        Referencia: '',
+                        Referencia: '0' + objItem.Id,
                         Id: objItem.Id,
                         Fecha: objItem.Inicio,
                         Estatus: status,

@@ -23,16 +23,11 @@ var RecepcionController = function() {
                         avance = Math.trunc(objItem.Tarimas / objItem.Por_recibir * 100);
 
                     var obj = {
-                        Referencia: '0' + objItem.Id,
                         Id: objItem.Id,
-                        Fecha: objItem.Inicio,
-                        Estatus: status,
-                        Avance: avance,
-                        Bodega: objItem.Bodega,
-                        Cortina: objItem.Cortina,
-                        Declaradas: objItem.Por_recibir,
-                        Recibidas: objItem.Tarimas,
-                        rowNum: rowNum++
+                        Referencia: objItem.Referencia,
+                        Fecha: objItem.Fecha_hora,
+                        Cliente: objItem.ClienteNombre,
+                        Cortina: objItem.CortinaNombre
                     };
 
                     arrData.push(obj);
@@ -111,11 +106,11 @@ var RecepcionController = function() {
                         var rowKey = this.getAttribute('id').split('_')[1] * 1;
                         try {
                             var arrObj = arrData.filter(function(obj) {
-                                return obj.rowNum == rowKey;
+                                return obj.Id == rowKey;
                             }); 
 
                             var obj = arrObj[0];
-
+                            console.log(JSON.stringify(obj));
                             var lbl_referencia = document.getElementById('lbl_referencia');
                             var lbl_bodega = document.getElementById('lbl_bodega');
                             var lbl_cortina = document.getElementById('lbl_cortina');
@@ -130,7 +125,7 @@ var RecepcionController = function() {
                             lbl_tar_recibida.innerHTML = obj.Recibidas;
                             lbl_por_recibir.innerHTML = obj.Declaradas - obj.Recibidas;
 
-                            initChart([obj.Recibidas, obj.Declaradas - obj.Recibidas]);
+                            //initChart([obj.Recibidas, obj.Declaradas - obj.Recibidas]);
 
                         } catch (error) {
                             console.log(error.message);

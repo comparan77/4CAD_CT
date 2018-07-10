@@ -1,7 +1,7 @@
 function OperationModel() {}
 
 OperationModel.carga_recepcion = function(callback, error) {
-    var url = urlHandler + 'handlers/Almacen.ashx?op=recepcion&opt=lst';
+    var url = urlHandler + 'handlers/Process.ashx?op=asn&opt=lst';
     try {
         Common.fetchJSONFile(
             url, 

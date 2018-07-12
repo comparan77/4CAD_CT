@@ -297,3 +297,10 @@ Common.checkConnection = function() {
     }
     return result;
 }
+
+Common.clearNode = function (node) {
+    var myNode = document.getElementById(node);
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.firstChild);
+    }
+}

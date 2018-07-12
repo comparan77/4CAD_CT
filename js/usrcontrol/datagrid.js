@@ -135,7 +135,7 @@
     }
 
     function buildOut() { 
-
+        
         this.table = document.getElementById('tbl_' + this.options.Id);
         if(this.table!=null) {
         	document.getElementById(this.options.Id).removeChild(this.table);
@@ -160,10 +160,11 @@
         
         for (i = 0; i < c.length; i++) {
             var div = c[i];
-            if(div.attributes.id != undefined)
-            switch(div.attributes.id.value) {
+            
+            if(div.attributes.type != undefined)
+            switch(div.attributes.type.value) {
                 case 'columns':
-                    var columns = document.getElementById('columns').children;
+                    var columns = div.getElementsByTagName('div');
                     var row = this.thead.insertRow(this.numRow);
                     for(var col = 0; col < columns.length; col ++) {
                         var column = columns[col];

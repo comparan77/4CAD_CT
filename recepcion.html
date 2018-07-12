@@ -1,6 +1,6 @@
 <div class="header">
     <h1>Recepci&oacute;n de Mercanc&iacute;a</h1>
-    <h2></h2>
+    <h2 id="h2_opt">Listado de ASN</h2>
 </div>
 
 <div class="pure-form pure-form-aligned">
@@ -10,8 +10,8 @@
     </div>
     <div class="pure-control-group" id="div_grd">
         <div id="grd_recepcion">
-            <div id="columns">
-                <div type="Boundfield" datafield="Referencia" headertext="Referencia"></div>
+            <div type="columns">
+                <div type="Boundfield" datafield="Folio" headertext="Folio"></div>
                 <div type="Boundfield" datafield="Fecha" headertext="Fecha"></div>
                 <div type="Boundfield" datafield="Cliente" headertext="Cliente"></div>
                 <div type="Boundfield" datafield="Cortina" headertext="Cortina"></div>
@@ -19,34 +19,106 @@
         </div>
     </div>
 
+    <div class="pure-control-group hidden" id="div_sin_cortina">
+
+        <div id="div_sel_cortina">
+            <div class="pure-control-group">
+                <select id="ddl_cortina"></select>
+            </div>
+        </div>            
+
+        <div class="pure-controls">
+            <button id="btn_regresar_grd" class="pure-button pure-button-primary">
+                Regresar
+            </button>
+        </div>
+    </div>
+
+    <div class="pure-control-group hidden" id="div_verificar_unidad">
+
+        <div class="pure-g">
+            <div class="pure-u-1-2"><span>Folio:</span></div>
+            <div class="pure-u-1-2"><label style="display: inline;" class="selected" id="lbl_folio_asn"></label></div>
+        </div>
+        <div class="pure-g">
+            <div class="pure-u-1-2"><span>Transportista:</span></div>
+            <div class="pure-u-1-2"><label style="display: inline;" class="selected" id="lbl_transportista"></label></div>
+        </div>
+        <div class="pure-g">
+            <div class="pure-u-1-2"><span>Transporte:</span></div>
+            <div class="pure-u-1-2"><label style="display: inline;" class="selected" id="lbl_transporte"></label></div>
+        </div>
+
+        <div class="pure-control-group" id="div_grd_unidad">
+            <div id="grd_unidad">
+                <div type="columns">
+                    <div type="Boundfield" datafield="Contenedor" headertext="Caja / Contenedor"></div>
+                    <div type="Boundfield" datafield="Sello" headertext="Sello"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pure-controls">
+            <button id="btn_confirmar_unidad" class="pure-button pure-button-primary">
+                Datos verificados
+            </button>
+        </div>
+
+    </div>
+
     <div class="pure-control-group hidden" id="div_detail">
+
+        <div class="pure-control-group">
+            <div class="pure-controls">
+                <button id="btn_cerrar_recibo" class="pure-button pure-button-primary pure-button-disabled" type="button">
+                    Cerrar recibo
+                </button>
+            </div>
+        </div>
+
+        <div class="pure-control-group" id="div_grd_partida">
+            <div id="grd_partida">
+                <div type="columns">
+                    <div type="Boundfield" datafield="Sku" headertext="SKU"></div>
+                    <div type="Boundfield" datafield="Tarima" headertext="TD"></div>
+                    <div type="Boundfield" datafield="Caja" headertext="CD"></div>
+                    <div type="Boundfield" datafield="TarRec" headertext="TR"></div>
+                    <div type="Boundfield" datafield="CajRec" headertext="CR"></div>
+                </div>
+            </div>
+        </div>
 
         <div class="pure-g">
             <div class="pure-u-1-2"><span>Referencia:</span></div>
             <div class="pure-u-1-2"><label style="display: inline;" class="selected" id="lbl_referencia"></label></div>
         </div>
         <div class="pure-g">
-            <div class="pure-u-1-2"><span>Bodega:</span></div>
+            <div class="pure-u-1-2"><span>Almac&eacute;n:</span></div>
             <div class="pure-u-1-2"><label style="display: inline;" class="selected" id="lbl_bodega"></label></div>
         </div>
         <div class="pure-g">
             <div class="pure-u-1-2"><span>Cortina:</span></div>
             <div class="pure-u-1-2"><label style="display: inline;" class="selected" id="lbl_cortina"></label></div>
         </div>
-        <div class="pure-g">
-            <div class="pure-u-1-2"><span>Tarimas declaradas:</span></div>
-            <div class="pure-u-1-2"><label style="display: inline;" class="selected" id="lbl_tar_declarada"></label></div>
-        </div>
-        <div class="pure-g">
-            <div class="pure-u-1-2"><span>Tarimas recibidas:</span></div>
-            <div class="pure-u-1-2"><label style="display: inline;" class="selected" id="lbl_tar_recibida"></label></div>
-        </div>
-        <div class="pure-g">
-            <div class="pure-u-1-2"><span>Tarimas por recibir:</span></div>
-            <div class="pure-u-1-2"><label style="display: inline;" class="selected" id="lbl_por_recibir"></label></div>
+
+        <div class="pure-controls" id="div_tarima_scan">
+            <button id="btn_init_scan_tarima" class="pure-button pure-button-primary" type="button">
+                Iniciar Escaner de Tarima
+            </button>
         </div>
 
-        <canvas id="myChart" width="200" height="200"></canvas>
+        <div class="pure-g hidden" id="div_tarima_seleccionada">
+            <div class="pure-u-1-2"><span>Tarima:</span></div>
+            <div class="pure-u-1-2"><label style="display: inline;" class="selected" id="lbl_tarima"></label></div>
+        </div>
+
+        <div class="pure-controls hidden" id="div_tarima_producto">
+            <button id="btn_init_scan_producto" class="pure-button pure-button-primary" type="button">
+                Escanear Producto
+            </button>
+        </div>
+
+        <!-- <canvas id="myChart" width="200" height="200"></canvas> -->
 
         <div class="pure-controls">
             <button id="btn_regresar" class="pure-button pure-button-primary">

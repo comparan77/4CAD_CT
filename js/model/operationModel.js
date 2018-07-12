@@ -75,8 +75,6 @@ OperationModel.recepcionCortinaTomar = function(obj, callback, error) {
 
 OperationModel.entradaAddAsn = function(id_asn, obj, callback, error) {
     var url = urlHandler + 'handlers/Warehouse.ashx?op=recepcion&opt=entradaAddAsn&pk=' + id_asn;
-    console.log(url);
-    console.log(JSON.stringify(obj));
     try {
         Common.fetchJSONFile(
             url, 

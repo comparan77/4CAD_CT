@@ -42,7 +42,8 @@
     }
 
     DataGrid.prototype.clear = function() {
-        this.table.innerHTML = '';
+        //this.table.innerHTML = '';
+        Common.clearNode('tbl_' + this.options.Id);
     }
 
     DataGrid.prototype.dataBind = function() {

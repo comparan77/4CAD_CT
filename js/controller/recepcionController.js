@@ -19,6 +19,7 @@ var RecepcionController = function() {
     function initControles () {
         
         x$('#info_recepcion_mercancia').addClass('hidden');
+        arrData = [];
         OperationModel.carga_recepcion(function(data) {
             x$('#info_load_data').addClass('hidden');
             var rowNum = 1;
@@ -44,20 +45,21 @@ var RecepcionController = function() {
                         Pallet: objItem.Pallet,
                         UnidadVerificada: false
                     };
-
-                    arrData.push(obj);
-                    rowNum++;
-                    if(arrData.length == 0) {
-                        x$('#info_recepcion_mercancia').removeClass('hidden');
-                    } else {
-                        fillGrd(arrData);
-                    }                    
+                    if(!objItem.Descargada) {
+                        arrData.push(obj);
+                        rowNum++;                  
+                    }
                 } catch (error) {
                     x$('#info_load_data').addClass('hidden');                    
                     console.log(error.message);
                 }
-
             }
+            if(arrData.length == 0) {
+                x$('#info_recepcion_mercancia').removeClass('hidden');
+                Common.clearNode('tbl_grd_recepcion');
+            } else {
+                fillGrd(arrData);
+            }  
         },
         function(error) {
             
@@ -81,7 +83,42 @@ var RecepcionController = function() {
 
     function btn_cerrar_recibo_click() {
         x$('#btn_cerrar_recibo').on('click', function() {
-            
+
+            var arrSalida = [];
+
+            for(var t in arrTarima) {
+                var oSal = {
+                    Id: 0,
+                    Referencia: document.getElementById('lbl_referencia').innerHTML,
+                    Fecha: '0001-01-01',
+                    Sku: arrTarima[t].Sku,
+                    Mercancia: '',
+                    Ubicacion: '',
+                    Serielote: '',
+                    Sid: arrTarima[t].Sid,
+                    Tarima: 1,
+                    Cantidad: arrTarima[t].Cajas,
+                    Calidad: 'A'
+                };
+                arrSalida.push(oSal);
+            }
+            x$('#btn_cerrar_recibo').addClass('pure-button-disabled');
+            x$('#btn_cerrar_recibo').html('Cerrando recibo ...')
+            OperationModel.entradaAddAsn(
+                arrTarima[0].Id_asn,
+                arrSalida,
+                function(data) {
+                    x$('#div_grd').removeClass('hidden');
+                    x$('#div_detail').addClass('hidden');
+                    x$('#btn_cerrar_recibo').addClass('pure-button-disabled');
+                    x$('#btn_cerrar_recibo').html('Cerrar recibo')
+                    initControles();
+                    Common.notificationAlert('La recepción se guardó correctamente', 'Cierre', 'Ok');
+                },
+                function (err) {
+                    Common.notificationAlert(err.message, 'Error en cierre', 'Ok');
+                }
+            );
         });
     }
 
@@ -123,7 +160,6 @@ var RecepcionController = function() {
                     x$('#div_grd').removeClass('hidden');
                     x$('#div_sin_cortina').addClass('hidden');
 
-                    arrData = [];
                     x$('#info_load_data').removeClass('hidden');
                     x$('#h2_opt').html(h2_opt_Ant);
                     initControles();
@@ -172,6 +208,7 @@ var RecepcionController = function() {
             source: data,
             CssClass: 'pure-table pure-table-horizontal'
         });
+        
         this.grd_recepcion.open();
         this.grd_recepcion.dataBind();
 
@@ -192,7 +229,7 @@ var RecepcionController = function() {
 
                             var obj = arrObj[0];
                             oAsn = obj;
-                            
+                            //console.log(JSON.stringify(arrData));
                             if(obj.Cortina != null) {
                             
                                 OperationModel.AsnById(
@@ -200,6 +237,7 @@ var RecepcionController = function() {
                                     function(data) {
 
                                         if(obj.UnidadVerificada) {
+                                            arrTarima = [];
                                             oAsn = data;
                                             //console.log(JSON.stringify(data));
 
@@ -247,13 +285,12 @@ var RecepcionController = function() {
                                 );
                                 
                             } else {
-
+                                
                                 OperationModel.recepcionCortinaDispBodega(
                                     1,
                                     function(data) {
                                         
                                         Common.clearNode('ddl_cortina');    
-                                        
                                         var opt = document.createElement('option');
                                         opt = document.createElement('option');
                                         opt.innerHTML = 'Selecciona una cortina';
@@ -403,16 +440,37 @@ var RecepcionController = function() {
     function updateGrdPartida() {
         var trPartidas = document.getElementById('grd_partida').getElementsByTagName('tr');
         
+        var totTarima = 0;
+        var totCaja = 0;
+        var cajas = 0;
         for(var i = 1; i < trPartidas.length; i++) {
             var trP = trPartidas[i];
             var arrSku = arrTarima.filter(function(obj) {
                 return obj.Sku == trP.children[0].innerHTML;
             });
             trP.children[3].innerHTML = arrSku.length;
-            trP.children[4].innerHTML = arrSku.reduce(function(a,b) {
+
+            cajas = arrSku.reduce(function(a,b) {
                 return { Cajas: a.Cajas + b.Cajas };
             }).Cajas;
+
+            trP.children[4].innerHTML = cajas;
+
+            totTarima += parseInt(trP.children[1].innerHTML);
+            totCaja += parseInt(trP.children[2].innerHTML);
         }
+
+        cajas = arrTarima.reduce(function(a,b) {
+            return { Cajas: a.Cajas + b.Cajas };
+        }).Cajas;
+
+        console.log('arr tarima: ' + arrTarima.length + ', tbl: ' + totTarima);
+        console.log('arr caja: ' + cajas + ', tbl: ' + totCaja);
+
+        if(arrTarima.length == totTarima && cajas == totCaja) {
+            x$('#btn_cerrar_recibo').removeClass('pure-button-disabled');
+        }
+
     }
 
 }

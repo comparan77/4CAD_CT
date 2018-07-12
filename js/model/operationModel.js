@@ -73,6 +73,27 @@ OperationModel.recepcionCortinaTomar = function(obj, callback, error) {
     }
 }
 
+OperationModel.entradaAddAsn = function(id_asn, obj, callback, error) {
+    var url = urlHandler + 'handlers/Warehouse.ashx?op=recepcion&opt=entradaAddAsn&pk=' + id_asn;
+    console.log(url);
+    console.log(JSON.stringify(obj));
+    try {
+        Common.fetchJSONFile(
+            url, 
+            function(data) {
+                callback(data);
+            }, 
+            function(msg) {
+                error(msg);
+            },
+            'POST',
+            JSON.stringify(obj)
+        );
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 OperationModel.recepcionCortinaLiberar = function(id_cortina, callback, error) {
     var url = urlHandler + 'handlers/Warehouse.ashx?op=recepcion&opt=cortinaLiberar&pk=' + id_cortina;
     try {
@@ -90,6 +111,8 @@ OperationModel.recepcionCortinaLiberar = function(id_cortina, callback, error) {
         console.log(error);
     }
 }
+
+
 
 OperationModel.maquila_addLst = function(obj, callback, error) {
     var url = urlHandler + 'handlers/CAEApp.ashx?op=maquila&opt=addLst';

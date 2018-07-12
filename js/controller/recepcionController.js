@@ -80,7 +80,7 @@ var RecepcionController = function() {
     }
 
     function btn_cerrar_recibo_click() {
-        x('#btn_cerrar_recibo').on('click', function() {
+        x$('#btn_cerrar_recibo').on('click', function() {
             
         });
     }

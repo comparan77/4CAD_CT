@@ -8,8 +8,8 @@ var CADController = function() {
                 obj = new Login();
             } else if (type === "inicio") {
                 obj = new Inicio();
-            } else if (type === "recepcion") {
-                obj = new RecepcionController();
+            } else if (type === "autop") {
+                obj = new Autorizacion_opController();
             } else if (type === "regpas") {
                 obj = new RegPasController();
             } else if (type === "capmaq") {
